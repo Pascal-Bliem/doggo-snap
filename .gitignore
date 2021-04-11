@@ -4,6 +4,10 @@ env.ts
 # dog data
 data/dogData.ts
 
+# dog images 
+assets/images/*
+!assets/images/affenpinscher.jpg
+
 # OSX
 #
 .DS_Store

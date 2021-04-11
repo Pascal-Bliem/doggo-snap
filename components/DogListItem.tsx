@@ -14,9 +14,9 @@ import { Breeds } from "../models/dog";
 
 export interface DogListItemProps {
   id: string;
-  imageUri: string;
+  imageUri?: string;
   name: string;
-  breed?: Breeds;
+  breed: Breeds;
   address?: string;
   onPress?: (id: string) => void;
 }
@@ -33,12 +33,16 @@ const DogListItem = ({
     <Card style={styles.card}>
       <TouchableOpacity
         style={styles.container}
+        onPress={() => (onPress ? onPress(id) : null)}
         disabled={onPress ? false : true}
       >
-        <Image source={{ uri: imageUri }} style={styles.image} />
+        <Image
+          source={imageUri ? { uri: imageUri } : dogData[breed]["image"]}
+          style={styles.image}
+        />
         <View style={styles.textContainer}>
           <Text style={styles.name}>{name}</Text>
-          {breed && (
+          {imageUri && (
             <View style={styles.textLine}>
               <FontAwesome5 name="dog" size={iconSize} style={styles.icon} />
               <Text style={styles.breedAndAddress}>

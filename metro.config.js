@@ -6,6 +6,7 @@ const defaultConfig = getDefaultConfig(__dirname);
 defaultConfig.resolver.assetExts.push("onnx");
 defaultConfig.resolver.assetExts.push("json");
 defaultConfig.resolver.assetExts.push("bin");
+defaultConfig.resolver.assetExts.push("jpg");
 
 defaultConfig.transformer = {
   assetPlugins: ["expo-asset/tools/hashAssetFiles"],

@@ -6,5 +6,6 @@ export default {
     lifespan: "x - y yr",
     personality: "Some, Personality, Traits",
     origin: "Country/Region of Origin",
+    image: require("../assets/images/affenpinscher.jpg"),
   },
 };

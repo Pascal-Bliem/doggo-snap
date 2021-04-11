@@ -36,7 +36,12 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
         </TouchableOpacity>
       </Card>
       <Card style={styles.card}>
-        <Text>And one more other card</Text>
+        <TouchableOpacity
+          style={{ flex: 1 }}
+          onPress={() => navigation.navigate("AllBreeds")}
+        >
+          <Text>Explore all Breeds</Text>
+        </TouchableOpacity>
       </Card>
     </ScrollView>
   );
