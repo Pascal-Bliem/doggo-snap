@@ -1,0 +1,12 @@
+{
+  "name": "DoggoSnap",
+  "displayName": "DoggoSnap",
+  "expo": {
+    "name": "DoggoSnap",
+    "slug": "DoggoSnap",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
