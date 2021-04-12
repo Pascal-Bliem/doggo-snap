@@ -8,6 +8,7 @@ import AddDogScreen from "../screens/AddDogScreen";
 import MapScreen from "../screens/MapScreen";
 import DogListScreen from "../screens/DogListScreen";
 import AllBreedsScreen from "../screens/AllBreedsScreen";
+import DogDetailsScreen from "../screens/DogDetailsScreen";
 
 const AppNavigator = createStackNavigator(
   {
@@ -17,6 +18,7 @@ const AppNavigator = createStackNavigator(
     Map: MapScreen,
     DogList: DogListScreen,
     AllBreeds: AllBreedsScreen,
+    DogDetails: DogDetailsScreen,
   },
   {
     defaultNavigationOptions: {

@@ -1,17 +1,26 @@
 import React, { useEffect } from "react";
 import { View, Text, FlatList, StyleSheet } from "react-native";
+import { NavigationScreenProp } from "react-navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../App";
 import * as dogsActions from "../store/actions/dogs";
 import DogListItem from "../components/DogListItem";
 
-const DogListScreen = () => {
+export interface DogListScreenProps {
+  navigation: NavigationScreenProp<any, any>;
+}
+
+const DogListScreen = ({ navigation }: DogListScreenProps) => {
   const dogs = useSelector((state: RootState) => state.dogs.dogs);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(dogsActions.loadDogs());
   }, [dispatch]);
+
+  const onPressHandler = (id: string) => {
+    navigation.navigate("DogDetails", { id });
+  };
 
   return (
     <View style={styles.screen}>
@@ -28,6 +37,7 @@ const DogListScreen = () => {
               name={itemData.item.name}
               breed={itemData.item.breed}
               address={itemData.item.address}
+              onPress={onPressHandler}
             />
           );
         }}

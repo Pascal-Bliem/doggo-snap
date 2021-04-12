@@ -1,7 +1,5 @@
 import React from "react";
 import {
-  View,
-  Image,
   StyleSheet,
   TouchableOpacity,
   ImageStyle,
@@ -13,7 +11,7 @@ import MapView, { Marker, MapEvent, LatLng } from "react-native-maps";
 
 export interface MapPreviewProps {
   location: LocationType | undefined;
-  style: ImageStyle | ViewStyle | TextStyle;
+  style?: ImageStyle | ViewStyle | TextStyle;
   onPress: () => void;
   children?: React.ReactNode;
 }

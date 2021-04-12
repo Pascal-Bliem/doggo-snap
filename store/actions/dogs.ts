@@ -1,7 +1,7 @@
 import { Dispatch } from "redux";
 import * as FileSystem from "expo-file-system";
 import { SQLResultSet } from "expo-sqlite";
-import { insertDog, fetchDogs } from "../../db/db";
+import { insertDog, deleteDog, fetchDogs } from "../../db/db";
 //@ts-ignore
 import { parseString } from "react-native-xml2js";
 
@@ -112,6 +112,21 @@ export const addDog = (
           latitude: latitude,
           longitude: longitude,
         },
+      });
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  };
+};
+
+export const removeDog = (id: number) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      const dbResult: SQLResultSet = await deleteDog(id);
+      dispatch({
+        type: REMOVE_DOG,
+        id: id,
       });
     } catch (err) {
       console.log(err);

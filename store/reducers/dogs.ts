@@ -26,6 +26,9 @@ export default (state = initialState, action: any) => {
         dogs: state.dogs.concat(newDog),
       };
     case REMOVE_DOG:
+      return {
+        dogs: state.dogs.filter((dog) => dog.id !== action.id),
+      };
       return state;
     case LOAD_DOGS:
       return {

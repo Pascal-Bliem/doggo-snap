@@ -1,20 +1,18 @@
 import React, { useState, useEffect, useCallback } from "react";
 import {
-  ScrollView,
   View,
   Text,
-  Image,
   StyleSheet,
   Dimensions,
   ActivityIndicator,
   TouchableOpacity,
-  Platform,
 } from "react-native";
 import * as ImageManipulator from "expo-image-manipulator";
 import { NavigationScreenProp } from "react-navigation";
 import modelConfig from "../constants/modelConfig";
 import Colors from "../constants/colors";
 import Card from "../components/Card";
+import DogDetails from "../components/DogDetails";
 import { FontAwesome5 } from "@expo/vector-icons";
 import dogData from "../data/dogData";
 import { Breeds } from "../models/dog";
@@ -128,74 +126,19 @@ const ClassificationScreen = ({ navigation }: ClassificationScreenProps) => {
           )}
         </View>
       ) : (
-        <ScrollView
-          style={styles.screen}
-          contentContainerStyle={styles.screenContainer}
+        <DogDetails
+          imageUri={imageUri}
+          name={dogData[classification[0].breed].name}
+          certainty={(classification[0].probability * 100).toFixed(0)}
+          breed={classification[0].breed}
         >
-          <Card style={styles.classificationContainer}>
-            <Image style={styles.image} source={{ uri: imageUri }} />
-            <View style={styles.breedAndCertainty}>
-              <Text style={styles.breedName}>
-                {dogData[classification[0].breed].name}
-              </Text>
-              <Text style={styles.certainty}>
-                Certainty: {(classification[0].probability * 100).toFixed(0)}%
-              </Text>
-            </View>
-          </Card>
-          <Card style={styles.personality}>
-            <FontAwesome5
-              name="lightbulb"
-              size={iconSize}
-              style={styles.icons}
-            />
-            <Text style={styles.detailText}>
-              {dogData[classification[0].breed].personality}
-            </Text>
-          </Card>
-          <Card style={styles.detailContainer}>
-            <View style={styles.detailRow}>
-              <FontAwesome5
-                name="arrows-alt-v"
-                size={iconSize}
-                style={styles.icons}
-              />
-              <Text style={styles.detailText}>
-                {dogData[classification[0].breed].height} cm
-              </Text>
-              <FontAwesome5
-                name="weight-hanging"
-                size={iconSize}
-                style={styles.icons}
-              />
-              <Text style={styles.detailText}>
-                {dogData[classification[0].breed].weight} kg
-              </Text>
-            </View>
-            <View style={styles.detailRow}>
-              <FontAwesome5 name="clock" size={iconSize} style={styles.icons} />
-              <Text style={styles.detailText}>
-                {dogData[classification[0].breed].lifespan}
-              </Text>
-              <FontAwesome5
-                name="map-marked-alt"
-                size={iconSize}
-                style={styles.icons}
-              />
-              <Text style={styles.detailText}>
-                {dogData[classification[0].breed].origin
-                  ? dogData[classification[0].breed].origin
-                  : "n.a."}
-              </Text>
-            </View>
-          </Card>
           <Card style={styles.saveButtonContainer}>
             <TouchableOpacity onPress={addDogHandler} style={styles.saveButton}>
               <FontAwesome5 name="save" size={iconSize} style={styles.icons} />
               <Text style={styles.saveButtonText}>Save this Dog</Text>
             </TouchableOpacity>
           </Card>
-        </ScrollView>
+        </DogDetails>
       )}
     </View>
   );
@@ -213,81 +156,14 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
   },
-  screenContainer: { justifyContent: "flex-start", alignItems: "center" },
   infoText: {
     padding: 40,
     alignSelf: "center",
-  },
-  classificationContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginVertical: 20,
-  },
-  image: {
-    width: Dimensions.get("window").width * 0.4,
-    height: Dimensions.get("window").width * 0.4,
-    margin: 20,
-    borderRadius: 25,
-  },
-  breedAndCertainty: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  breedName: {
-    fontWeight: "bold",
-    fontSize: 24,
-    marginTop: 20,
-  },
-  certainty: {
-    color: "#6a6a6a",
-    fontStyle: "italic",
-    paddingRight: "10%",
-    marginVertical: 10,
-  },
-  personality: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: 10,
-  },
-  personalityText: {
-    margin: 15,
-  },
-  detailContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginVertical: 20,
-    padding: 10,
-  },
-  detailRow: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
   },
   icons: {
     width: "10%",
     margin: Dimensions.get("window").width * 0.02,
     marginLeft: Dimensions.get("window").width * 0.04,
-  },
-  detailText: {
-    flex: 1,
-    color: "#6a6a6a",
-    fontStyle: "italic",
-    alignSelf: "center",
-    margin: Dimensions.get("window").width * 0.03,
-    flexWrap: "wrap",
-  },
-  headerButtonText: {
-    fontSize: 18,
-    color: Platform.OS === "android" ? "white" : Colors.primary,
-    paddingRight: Dimensions.get("window").width * 0.03,
   },
   saveButtonContainer: {
     marginBottom: 50,

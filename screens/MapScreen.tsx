@@ -1,12 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
-  Alert,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 import MapView, { Marker, MapEvent, Region } from "react-native-maps";
 import Colors from "../constants/colors";

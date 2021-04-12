@@ -48,6 +48,25 @@ export const insertDog = (
   return promise;
 };
 
+export const deleteDog = (id: number): Promise<SQLResultSet> => {
+  const promise = new Promise<SQLResultSet>((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        "DELETE FROM dogs WHERE id = ?",
+        [id],
+        (_, result) => {
+          resolve(result);
+        },
+        (_, err) => {
+          reject(err);
+          return false;
+        }
+      );
+    });
+  });
+  return promise;
+};
+
 export const fetchDogs = (): Promise<SQLResultSet> => {
   const promise = new Promise<SQLResultSet>((resolve, reject) => {
     db.transaction((tx) => {
