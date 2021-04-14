@@ -15,7 +15,7 @@ import dogData from "../data/dogData";
 import { Breeds } from "../models/dog";
 
 export interface DogDetailsProps {
-  imageUri: string;
+  imageUri?: string;
   name: string;
   certainty?: string;
   breed: Breeds;
@@ -37,7 +37,7 @@ const DogDetails = ({
       <Card style={styles.classificationContainer}>
         <Image
           style={styles.image}
-          source={certainty ? { uri: imageUri } : dogData[breed]["image"]}
+          source={imageUri ? { uri: imageUri } : dogData[breed]["image"]}
         />
         <View style={styles.breedAndCertainty}>
           <Text style={styles.breedName}>{name}</Text>

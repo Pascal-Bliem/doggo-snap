@@ -1,9 +1,20 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import { NavigationScreenProp } from "react-navigation";
+import { useSelector } from "react-redux";
 import MapView, { Marker, MapEvent, Region } from "react-native-maps";
 import Colors from "../constants/colors";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { RootState } from "../App";
+import { LocationType } from "../components/LocationPicker";
+import Dog from "../models/dog";
 import Card from "../components/Card";
 
 export interface MapScreenProps {
@@ -11,8 +22,12 @@ export interface MapScreenProps {
 }
 
 const MapScreen = ({ navigation }: MapScreenProps) => {
-  const initialLocation = navigation.getParam("initialLocation");
-  const readonly = navigation.getParam("readonly");
+  const dogs: Dog[] = useSelector((state: RootState) => state.dogs.dogs);
+
+  const initialLocation: LocationType = navigation.getParam("initialLocation");
+  const readonly: boolean = navigation.getParam("readonly");
+  const allDogs: boolean = navigation.getParam("allDogs");
+
   const [selectedLocation, setSelectedLocation] = useState(initialLocation);
 
   const mapRegion = useRef({
@@ -75,6 +90,27 @@ const MapScreen = ({ navigation }: MapScreenProps) => {
             coordinate={markerCoordinates}
           ></Marker>
         )}
+        {allDogs &&
+          dogs.map((dog) => {
+            return (
+              <Marker
+                key={dog.id}
+                title={dog.name}
+                coordinate={{
+                  latitude: dog.latitude,
+                  longitude: dog.longitude,
+                }}
+                onPress={() =>
+                  navigation.navigate("DogDetails", { id: dog.id })
+                }
+              >
+                <Image
+                  source={{ uri: dog.imageUri }}
+                  style={styles.markerImage}
+                />
+              </Marker>
+            );
+          })}
       </MapView>
       {!readonly && (
         <Card style={styles.saveButtonContainer}>
@@ -104,6 +140,13 @@ const styles = StyleSheet.create({
   map: {
     flex: 1,
     width: "100%",
+  },
+  markerImage: {
+    height: 50,
+    width: 50,
+    borderRadius: 50,
+    borderWidth: 1,
+    borderColor: Colors.primary,
   },
   saveButtonContainer: {
     marginVertical: 20,

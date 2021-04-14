@@ -19,7 +19,7 @@ const DogListScreen = ({ navigation }: DogListScreenProps) => {
   }, [dispatch]);
 
   const onPressHandler = (id: string) => {
-    navigation.navigate("DogDetails", { id });
+    navigation.navigate("DogDetails", { id: id });
   };
 
   return (

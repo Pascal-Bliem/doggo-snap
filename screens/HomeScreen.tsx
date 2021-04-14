@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from "react";
-import {
-  ActivityIndicator,
-  ScrollView,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import React, { useEffect } from "react";
+import { ScrollView, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
+import { useDispatch } from "react-redux";
 import Card from "../components/Card";
 import ImagePicker from "../components/ImagePicker";
+import * as dogsActions from "../store/actions/dogs";
 
 // ping the heroku server to wake it up
 fetch("https://doggo-snap-api.herokuapp.com/health");
@@ -18,6 +14,12 @@ export interface HomeScreenProps {
 }
 
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(dogsActions.loadDogs());
+  }, [dispatch]);
+
   const onImageTakenHandler = (imageUri: string): void => {
     navigation.navigate("Classification", { imageUri: imageUri });
   };
@@ -41,6 +43,16 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
           onPress={() => navigation.navigate("AllBreeds")}
         >
           <Text>Explore all Breeds</Text>
+        </TouchableOpacity>
+      </Card>
+      <Card style={styles.card}>
+        <TouchableOpacity
+          style={{ flex: 1 }}
+          onPress={() =>
+            navigation.navigate("Map", { readonly: true, allDogs: true })
+          }
+        >
+          <Text>View your dogs on the map</Text>
         </TouchableOpacity>
       </Card>
     </ScrollView>

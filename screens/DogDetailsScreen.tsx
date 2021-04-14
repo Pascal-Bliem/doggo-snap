@@ -40,7 +40,12 @@ const DogDetailsScreen = ({ navigation }: DogDetailsScreenProps) => {
     : dogData[id as Breeds];
 
   const onMapPreviewPressHandler = () => {
-    navigation.navigate("Map", { readonly: true });
+    navigation.navigate("Map", {
+      readonly: true,
+      initialLocation: isOwnDog
+        ? { latitude: dog.latitude, longitude: dog.longitude }
+        : null,
+    });
   };
 
   const dispatch = useDispatch();
@@ -66,7 +71,7 @@ const DogDetailsScreen = ({ navigation }: DogDetailsScreenProps) => {
         <View></View>
       ) : (
         <DogDetails
-          imageUri={isOwnDog ? { uri: dog.imageUri } : dog.image}
+          imageUri={isOwnDog ? dog.imageUri : null}
           name={dog.name}
           breed={isOwnDog ? dog.breed : id}
         >
