@@ -48,6 +48,11 @@ const DogDetails = ({
               ? dogData[breed].name
               : null}
           </Text>
+          {certainty && Number(certainty) < 60 && (
+            <Text style={{ ...styles.certainty, color: "red" }}>
+              Very low certainty! Are you sure this is a pure breed dog?
+            </Text>
+          )}
         </View>
       </Card>
       <Card style={styles.personality}>
