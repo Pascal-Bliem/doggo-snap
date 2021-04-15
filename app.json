@@ -1,12 +1,44 @@
 {
-  "name": "DoggoSnap",
-  "displayName": "DoggoSnap",
+  "name": "Doggo Snap",
+  "displayName": "Doggo Snap",
   "expo": {
-    "name": "DoggoSnap",
-    "slug": "DoggoSnap",
+    "name": "Doggo Snap",
+    "slug": "doggo-snap",
+    "platforms": ["ios", "android"],
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "orientation": "default",
+    "assetBundlePatterns": ["**/*"],
+    "splash": {
+      "image": "./assets/splash.png",
+      "backgroundColor": "#ffffff",
+      "resizeMode": "contain"
+    },
+    "icon": "./assets/icon.png",
+    "updates": {
+      "fallbackToCacheTimeout": 2000
+    },
+    "ios": {
+      "bundleIdentifier": "com.pascalbliem.doggosnap",
+      "supportsTablet": true,
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.pascalbliem.doggosnap",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "CAMERA",
+        "WRITE_EXTERNAL_STORAGE"
+      ],
+      "config": {
+        "googleMaps": {
+          "apiKey": ""
+        }
+      }
+    }
   }
 }

@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     margin: ((Dimensions.get("window").width * 0.9) / 2) * 0.05,
     padding: 10,
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "white",
     borderRadius: 10,
     maxWidth:
       (Dimensions.get("window").width * 0.9) / 2 -

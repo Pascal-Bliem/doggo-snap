@@ -8,6 +8,9 @@ data/dogData.ts
 assets/images/*
 !assets/images/affenpinscher.jpg
 
+# app settings including API keys
+./app.json
+
 # OSX
 #
 .DS_Store

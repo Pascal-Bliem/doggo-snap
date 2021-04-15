@@ -1,10 +1,19 @@
 import React, { useEffect } from "react";
-import { ScrollView, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  ScrollView,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 import { useDispatch } from "react-redux";
+import { FontAwesome5 } from "@expo/vector-icons";
 import Card from "../components/Card";
 import ImagePicker from "../components/ImagePicker";
 import * as dogsActions from "../store/actions/dogs";
+import Colors from "../constants/colors";
 
 // ping the heroku server to wake it up
 fetch("https://doggo-snap-api.herokuapp.com/health");
@@ -25,34 +34,61 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.screen}>
+    <ScrollView
+      style={styles.screen}
+      contentContainerStyle={styles.screenContainer}
+    >
       <Card style={{ ...styles.card, ...styles.imagePickerCard }}>
         <ImagePicker onImageTaken={onImageTakenHandler} />
       </Card>
       <Card style={styles.card}>
         <TouchableOpacity
-          style={{ flex: 1 }}
+          style={styles.actionCards}
           onPress={() => navigation.navigate("DogList")}
         >
-          <Text>Go to Dog list</Text>
+          <FontAwesome5
+            name="dog"
+            size={iconSize}
+            color={Colors.primary}
+            style={styles.icon}
+          />
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>View your Dogs</Text>
+          </View>
         </TouchableOpacity>
       </Card>
       <Card style={styles.card}>
         <TouchableOpacity
-          style={{ flex: 1 }}
-          onPress={() => navigation.navigate("AllBreeds")}
-        >
-          <Text>Explore all Breeds</Text>
-        </TouchableOpacity>
-      </Card>
-      <Card style={styles.card}>
-        <TouchableOpacity
-          style={{ flex: 1 }}
+          style={styles.actionCards}
           onPress={() =>
             navigation.navigate("Map", { readonly: true, allDogs: true })
           }
         >
-          <Text>View your dogs on the map</Text>
+          <FontAwesome5
+            name="map"
+            size={iconSize}
+            color={Colors.ternary}
+            style={styles.icon}
+          />
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>View on Map</Text>
+          </View>
+        </TouchableOpacity>
+      </Card>
+      <Card style={{ ...styles.card, marginBottom: 20 }}>
+        <TouchableOpacity
+          style={styles.actionCards}
+          onPress={() => navigation.navigate("AllBreeds")}
+        >
+          <FontAwesome5
+            name="list-ul"
+            size={iconSize}
+            color={Colors.primary}
+            style={styles.icon}
+          />
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>Explore Breeds</Text>
+          </View>
         </TouchableOpacity>
       </Card>
     </ScrollView>
@@ -63,9 +99,15 @@ HomeScreen.navigationOptions = {
   headerTitle: "🐾 Doggo Snap 🐾",
 };
 
+const iconSize = 40;
+
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+    // height: "100%",
+  },
+  screenContainer: {
+    // flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
   },
@@ -73,9 +115,34 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 20,
+    minHeight: 100,
   },
   imagePickerCard: {
     height: 200,
+  },
+  titleContainer: {
+    position: "absolute",
+    width: "100%",
+    left: 0,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  icon: {
+    position: "absolute",
+    left: Dimensions.get("window").width * 0.05,
+    marginRight: 20,
+  },
+  actionCards: {
+    position: "relative",
+    flex: 1,
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
   },
 });
 

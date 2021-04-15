@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 24,
     marginTop: 20,
+    flexWrap: "wrap",
   },
   certainty: {
     color: "#6a6a6a",

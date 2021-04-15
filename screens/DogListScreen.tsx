@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, FlatList, StyleSheet } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../App";
@@ -27,7 +27,7 @@ const DogListScreen = ({ navigation }: DogListScreenProps) => {
       <FlatList
         style={styles.list}
         contentContainerStyle={styles.listContentContainer}
-        data={dogs}
+        data={dogs.reverse()}
         keyExtractor={(item) => String(item.id)}
         renderItem={(itemData) => {
           return (
